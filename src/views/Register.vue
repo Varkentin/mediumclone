@@ -5,9 +5,7 @@
         <div class="col-md-6 offset-md-3 col-xs-12">
           <h1 class="text-xs-center">Sign up</h1>
           <p class="text-xs-center">
-            <router-link :to="{name: 'login'}">
-              Need an account?
-            </router-link>
+            <router-link :to="{name: 'login'}"> Need an account? </router-link>
           </p>
           VALIDATION ERRORS
           <form @submit.prevent="onSubmit">
@@ -16,6 +14,7 @@
                 class="form-control form-control-lg"
                 type="text"
                 placeholder="Username"
+                v-model="username"
               />
             </fieldset>
             <fieldset class="form-group">
@@ -23,6 +22,7 @@
                 class="form-control form-control-lg"
                 type="text"
                 placeholder="Email"
+                v-model="email"
               />
             </fieldset>
             <fieldset class="form-group">
@@ -30,6 +30,7 @@
                 class="form-control form-control-lg"
                 type="password"
                 placeholder="Password"
+                v-model="password"
               />
             </fieldset>
             <button
@@ -48,23 +49,31 @@
 <script>
 export default {
   name: 'McvRegister',
+  data() {
+    return {
+      email: '',
+      password: '',
+      username: '',
+    }
+  },
   computed: {
     isSubmitting() {
       return this.$store.state.auth.isSubmitting
-    }
+    },
   },
   methods: {
     onSubmit() {
       this.$store
         .dispatch('register', {
-          email: 'gwegwgwd@gwegwe.com',
-          username: 'gegsdgsd',
-          password: 'gdsgsdggrege'
+          email: this.email,
+          username: this.username,
+          password: this.password,
         })
-        .then(result => {
-          console.log('result from register action', result)
+        .then((result) => {
+					console.log('result from register action', result)
+					this.$router.push({name:'home'})
         })
-    }
-  }
+    },
+  },
 }
 </script>
